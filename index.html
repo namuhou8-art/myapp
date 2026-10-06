@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>وظائف النجف</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -25,14 +22,8 @@ header{
   text-align:center;
 }
 
-header h1{
-  margin:0;
-  font-size:28px;
-}
-
-header p{
-  margin:8px 0 0;
-}
+header h1{margin:0;font-size:28px}
+header p{margin:8px 0 0}
 
 .container{
   max-width:700px;
@@ -57,12 +48,11 @@ header p{
 }
 
 .filter{
-  border:none;
+  border:0;
   background:white;
   padding:10px 15px;
   border-radius:20px;
   white-space:nowrap;
-  cursor:pointer;
 }
 
 .filter.active{
@@ -70,7 +60,7 @@ header p{
   color:white;
 }
 
-.counter{
+#status{
   margin:15px 0;
   font-weight:bold;
 }
@@ -83,12 +73,16 @@ header p{
   box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.job h2{
-  margin:5px 0 10px;
-}
+.job h2{margin:8px 0}
 
-.company{
-  font-weight:bold;
+.badge{
+  display:inline-block;
+  background:#e8f5e9;
+  color:#137333;
+  padding:5px 9px;
+  border-radius:10px;
+  font-size:13px;
+  margin-left:5px;
 }
 
 .job p{
@@ -96,46 +90,23 @@ header p{
   color:#555;
 }
 
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:10px;
-  background:#e8f5e9;
-  color:#137333;
-  font-size:13px;
-  margin-left:5px;
-}
-
-.training{
-  background:#fff3e0;
-  color:#b45309;
-}
-
-.details{
-  width:100%;
-  border:none;
+.source{
+  display:block;
+  text-align:center;
   background:#1565c0;
   color:white;
   padding:12px;
   border-radius:10px;
+  text-decoration:none;
   margin-top:12px;
-  font-size:15px;
 }
 
 .warning{
   background:#fff3cd;
   padding:14px;
   border-radius:12px;
-  margin-top:20px;
   line-height:1.7;
-}
-
-.empty{
-  display:none;
-  text-align:center;
-  background:white;
-  padding:30px;
-  border-radius:15px;
+  margin-top:20px;
 }
 </style>
 </head>
@@ -144,7 +115,7 @@ header p{
 
 <header>
   <h1>💼 وظائف النجف</h1>
-  <p>ابحث عن فرصة العمل المناسبة لك</p>
+  <p>كاشير • تدريب • بدون خبرة • وجميع الوظائف</p>
 </header>
 
 <div class="container">
@@ -153,135 +124,157 @@ header p{
   id="search"
   class="search"
   type="search"
-  placeholder="🔎 ابحث: كاشير، إداري، مبيعات..."
+  placeholder="🔎 ابحث عن وظيفة..."
 >
 
 <div class="filters">
-  <button class="filter active" data-filter="all">الكل</button>
+  <button class="filter active" data-filter="الكل">الكل</button>
   <button class="filter" data-filter="كاشير">كاشير</button>
   <button class="filter" data-filter="بدون خبرة">بدون خبرة</button>
   <button class="filter" data-filter="تدريب">مع تدريب</button>
 </div>
 
-<div id="counter" class="counter"></div>
+<div id="status">جاري تحميل الوظائف...</div>
 
-<!-- بيانات تجريبية فقط -->
-
-<div class="job"
-     data-text="كاشير بدون خبرة">
-
-  <span class="badge">بدون خبرة</span>
-
-  <h2>كاشير</h2>
-
-  <div class="company">مثال تجريبي</div>
-
-  <p>📍 النجف الأشرف</p>
-  <p>💰 الراتب: غير محدد</p>
-  <p>🕐 الدوام: غير محدد</p>
-
-  <button class="details"
-    onclick="alert('هذه وظيفة تجريبية وليست إعلان توظيف حقيقيًا.')">
-    عرض التفاصيل
-  </button>
-
-</div>
-
-<div class="job"
-     data-text="تدريب موظف مبتدئ بدون خبرة">
-
-  <span class="badge training">مع تدريب</span>
-  <span class="badge">بدون خبرة</span>
-
-  <h2>تدريب للعمل</h2>
-
-  <div class="company">مثال تجريبي</div>
-
-  <p>📍 النجف الأشرف</p>
-  <p>🎓 مناسب للمبتدئين</p>
-  <p>💼 تدريب لاكتساب الخبرة</p>
-
-  <button class="details"
-    onclick="alert('هذا مثال تجريبي، وسنربط التطبيق بالوظائف الحقيقية لاحقًا.')">
-    عرض التفاصيل
-  </button>
-
-</div>
-
-<div id="empty" class="empty">
-  لا توجد نتائج مطابقة لبحثك.
-</div>
+<div id="jobs"></div>
 
 <div class="warning">
-⚠️ <strong>تنبيه:</strong>
-لا تدفع أي مبلغ مالي مقابل الحصول على وظيفة قبل التأكد من جهة العمل.
+⚠️ لا تدفع أي مبلغ مالي مقابل الحصول على وظيفة قبل التأكد من جهة العمل.
 </div>
 
 </div>
 
 <script>
+let allJobs = [];
+let filter = "الكل";
 
-const search = document.getElementById("search");
-const jobs = document.querySelectorAll(".job");
+const jobsBox = document.getElementById("jobs");
+const statusBox = document.getElementById("status");
+const searchBox = document.getElementById("search");
 const buttons = document.querySelectorAll(".filter");
-const counter = document.getElementById("counter");
-const empty = document.getElementById("empty");
 
-let currentFilter = "all";
+async function loadJobs(){
+  try{
+    const response = await fetch("jobs.json?time=" + Date.now());
 
-function updateJobs(){
-
-  const query = search.value.trim().toLowerCase();
-
-  let visible = 0;
-
-  jobs.forEach(job=>{
-
-    const text = job.dataset.text.toLowerCase();
-
-    const matchesSearch =
-      text.includes(query);
-
-    const matchesFilter =
-      currentFilter === "all" ||
-      text.includes(currentFilter.toLowerCase());
-
-    if(matchesSearch && matchesFilter){
-      job.style.display="block";
-      visible++;
-    }else{
-      job.style.display="none";
+    if(!response.ok){
+      throw new Error("تعذر تحميل الملف");
     }
 
-  });
+    allJobs = await response.json();
 
-  counter.textContent =
-    "الوظائف الظاهرة: " + visible;
+    if(!Array.isArray(allJobs)){
+      throw new Error("صيغة البيانات غير صحيحة");
+    }
 
-  empty.style.display =
-    visible === 0 ? "block" : "none";
+    showJobs();
+
+  }catch(error){
+    statusBox.textContent =
+      "تعذر تحميل الوظائف حاليًا.";
+  }
 }
 
-search.addEventListener("input",updateJobs);
+function showJobs(){
+
+  const search =
+    searchBox.value.trim().toLowerCase();
+
+  const results = allJobs.filter(job=>{
+
+    const text = [
+      job.title,
+      job.company,
+      job.location,
+      job.experience,
+      job.training,
+      job.description
+    ].join(" ").toLowerCase();
+
+    const searchMatch =
+      text.includes(search);
+
+    const filterMatch =
+      filter === "الكل" ||
+      text.includes(filter.toLowerCase());
+
+    return searchMatch && filterMatch;
+  });
+
+  statusBox.textContent =
+    "الوظائف المتاحة: " + results.length;
+
+  jobsBox.innerHTML = "";
+
+  if(results.length === 0){
+    jobsBox.innerHTML =
+      "<div class='job'>لا توجد وظائف مطابقة حاليًا.</div>";
+    return;
+  }
+
+  results.forEach(job=>{
+
+    const card = document.createElement("div");
+    card.className = "job";
+
+    const safeTitle = escapeHTML(job.title || "وظيفة");
+    const safeCompany = escapeHTML(job.company || "غير محدد");
+    const safeLocation = escapeHTML(job.location || "النجف");
+    const safeSalary = escapeHTML(job.salary || "غير محدد");
+    const safeExperience = escapeHTML(job.experience || "غير محدد");
+    const safeDate = escapeHTML(job.date || "غير معروف");
+
+    card.innerHTML = `
+      <span class="badge">${safeExperience}</span>
+
+      <h2>${safeTitle}</h2>
+
+      <p>🏢 ${safeCompany}</p>
+      <p>📍 ${safeLocation}</p>
+      <p>💰 الراتب: ${safeSalary}</p>
+      <p>👤 الخبرة: ${safeExperience}</p>
+      <p>📅 النشر: ${safeDate}</p>
+
+      ${
+        job.source
+        ? `<a class="source"
+             href="${encodeURI(job.source)}"
+             target="_blank"
+             rel="noopener noreferrer">
+             فتح الإعلان الأصلي
+           </a>`
+        : ""
+      }
+    `;
+
+    jobsBox.appendChild(card);
+  });
+}
+
+function escapeHTML(value){
+  const div = document.createElement("div");
+  div.textContent = String(value);
+  return div.innerHTML;
+}
+
+searchBox.addEventListener("input",showJobs);
 
 buttons.forEach(button=>{
-
   button.addEventListener("click",()=>{
 
-    buttons.forEach(b=>b.classList.remove("active"));
+    buttons.forEach(b=>
+      b.classList.remove("active")
+    );
 
     button.classList.add("active");
 
-    currentFilter = button.dataset.filter;
+    filter = button.dataset.filter;
 
-    updateJobs();
-
+    showJobs();
   });
-
 });
 
-updateJobs();
-
+loadJobs();
 </script>
 
 </body>
